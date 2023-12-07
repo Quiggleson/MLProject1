@@ -11,6 +11,7 @@ from sklearn.metrics import precision_score, recall_score, accuracy_score
 from scipy import stats
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.ensemble import RandomForestClassifier
+from joblib import dump, load
 
 def cleaning():
     
@@ -156,7 +157,7 @@ def knn():
     plt.text(0,-0.2,f'Mean: {np.mean(recalls)}\nStandard Deviation:{np.std(recalls)}')
     plt.show()
 
-def rfc():
+def rfc(plot = False):
 
     data = pd.read_csv('./train.csv',index_col=0)
     X = data.iloc[:,:-1]
@@ -185,38 +186,47 @@ def rfc():
         precisions.append(precision_score(ytest, rf.predict(xtest), average='weighted'))
         recalls.append(recall_score(ytest, rf.predict(xtest), average='weighted'))
     
-    plt.bar(range(1, 11), accuracy)
-    plt.xlabel('Fold')
-    plt.ylabel('Accuracy')
-    plt.title('Accuracy with Different Folds')
-    plt.gcf().subplots_adjust(bottom=0.2)
-    plt.text(0,-0.2,f'Mean: {np.mean(accuracy)}\nStandard Deviation:{np.std(accuracy)}')
+    dump(rf, 'trainedrf.joblib')
     
-    plt.figure()
-    plt.bar(range(1, 11), precisions)
-    plt.xlabel('Fold')
-    plt.ylabel('Precision')
-    plt.title('Precision with Different Folds')
-    plt.gcf().subplots_adjust(bottom=0.2)
-    plt.text(0,-0.2,f'Mean: {np.mean(precisions)}\nStandard Deviation:{np.std(accuracy)}')
-    
-    plt.figure()
-    plt.bar(range(1, 11), recalls)
-    plt.xlabel('Fold')
-    plt.ylabel('Recall')
-    plt.title('Recall with Different Folds')
-    plt.gcf().subplots_adjust(bottom=0.2)
-    plt.text(0,-0.2,f'Mean: {np.mean(recalls)}\nStandard Deviation:{np.std(recalls)}')
-    
-    plt.show()
+    if plot:
+        plt.bar(range(1, 11), accuracy)
+        plt.xlabel('Fold')
+        plt.ylabel('Accuracy')
+        plt.title('Accuracy with Different Folds')
+        plt.gcf().subplots_adjust(bottom=0.2)
+        plt.text(0,-0.2,f'Mean: {np.mean(accuracy)}\nStandard Deviation:{np.std(accuracy)}')
+        
+        plt.figure()
+        plt.bar(range(1, 11), precisions)
+        plt.xlabel('Fold')
+        plt.ylabel('Precision')
+        plt.title('Precision with Different Folds')
+        plt.gcf().subplots_adjust(bottom=0.2)
+        plt.text(0,-0.2,f'Mean: {np.mean(precisions)}\nStandard Deviation:{np.std(accuracy)}')
+        
+        plt.figure()
+        plt.bar(range(1, 11), recalls)
+        plt.xlabel('Fold')
+        plt.ylabel('Recall')
+        plt.title('Recall with Different Folds')
+        plt.gcf().subplots_adjust(bottom=0.2)
+        plt.text(0,-0.2,f'Mean: {np.mean(recalls)}\nStandard Deviation:{np.std(recalls)}')
+        
+        plt.show()
+
+def predict_rfc(df):
+    rf = load('trainedrf.joblib')
+    prediction = rf.predict(df)
+    return prediction
+
 
 # Uncomment the part of the project you'd like to see
 
 # Data visualization and checking for bad data
-cleaning()
+# cleaning()
 
 # KNN Classifier
-knn()
+# knn()
 
 # Random Forest Classifier
 rfc()

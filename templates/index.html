@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Forest Classifier App</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Random Forest Classifier App</h1>
+    <form method="post" action="/">
+        <label for="Wilderness_Area">Wilderness_Area:</label>
+        <select name="Wilderness_Area">
+            <option value="0">Rawah Wilderness Area</option>
+            <option value="1">Neota Wilderness Area</option>
+            <option value="2">Comanche Peak Wilderness Area</option>
+            <option value="3">Cache la Poudre Wilderness Area</option>
+        </select><br>
+
+        <label for="Soil_Type">Soil_Type:</label>
+        <select name="Soil_Type">
+            <option value="0">Cathedral family - Rock outcrop complex, extremely stony</option>
+            <option value="1">Vanet - Ratake families complex, very stony</option>
+            <option value="2">Haploborolis - Rock outcrop complex, rubbly</option>
+            <option value="3">Ratake family - Rock outcrop complex, rubbly</option>
+            <option value="4">Vanet family - Rock outcrop complex complex, rubbly</option>
+            <option value="5">Vanet - Wetmore families - Rock outcrop complex, stony</option>
+            <option value="6">Gothic family</option>
+            <option value="7">Supervisor - Limber families complex</option>
+            <option value="8">Troutville family, very stony</option>
+            <option value="9">Bullwark - Catamount families - Rock outcrop complex, rubbly</option>
+            <option value="10">Bullwark - Catamount families - Rock land complex, rubbly.</option>
+            <option value="11">Legault family - Rock land complex, stony</option>
+            <option value="12">Catamount family - Rock land - Bullwark family complex, rubbly</option>
+            <option value="13">Pachic Argiborolis - Aquolis complex</option>
+            <option value="14">unspecified in the USFS Soil and ELU Survey</option>
+            <option value="15">Cryaquolis - Cryoborolis complex</option>
+            <option value="16">Gateview family - Cryaquolis complex</option>
+            <option value="17">Rogert family, very stony</option>
+            <option value="18">Typic Cryaquolis - Borohemists complex</option>
+            <option value="19">Typic Cryaquepts - Typic Cryaquolls complex</option>
+            <option value="20">Typic Cryaquolls - Leighcan family, till substratum complex</option>
+            <option value="21">Leighcan family, till substratum, extremely bouldery</option>
+            <option value="22">Leighcan family, till substratum - Typic Cryaquolls complex</option>
+            <option value="23">Leighcan family, extremely stony</option>
+            <option value="24">Leighcan family, warm, extremely stony</option>
+            <option value="25">Granile - Catamount families complex, very stony</option>
+            <option value="26">Leighcan family, warm - Rock outcrop complex, extremely stony</option>
+            <option value="27">Leighcan family - Rock outcrop complex, extremely stony</option>
+            <option value="28">Como - Legault families complex, extremely stony</option>
+            <option value="29">Como family - Rock land - Legault family complex, extremely stony</option>
+            <option value="30">Leighcan - Catamount families complex, extremely stony</option>
+            <option value="31">Catamount family - Rock outcrop - Leighcan family complex, extremely stony</option>
+            <option value="32"> Leighcan - Catamount families - Rock outcrop complex, extremely stony</option>
+            <option value="33">Cryorthents - Rock land complex, extremely stony</option>
+            <option value="34">Cryumbrepts - Rock outcrop - Cryaquepts complex</option>
+            <option value="35">Bross family - Rock land - Cryumbrepts complex, extremely stony</option>
+            <option value="36">Rock outcrop - Cryumbrepts - Cryorthents complex, extremely stony</option>
+            <option value="37">Leighcan - Moran families - Cryaquolls complex, extremely stony</option>
+            <option value="38">Moran family - Cryorthents - Leighcan family complex, extremely stony</option>
+            <option value="39">Moran family - Cryorthents - Rock land complex, extremely stony</option>
+            <!-- {% for i in range(1, 41) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %} -->
+        </select><br>
+
+        <label for="Elevation">Elevation in meters</label>
+        <input type="text" name="Elevation" required><br>
+
+        <label for="Aspect">Aspect in degrees azimuth (0 to 360)</label>
+        <input type="text" name="Aspect" required><br>
+
+        <label for="Slope">Slope in degrees (0 to 180)</label>
+        <input type="text" name="Slope" required><br>
+        
+        <label for="Horizontal_Distance_To_Hydrology">Horizontal_Distance_To_Hydrology</label>
+        <input type="text" name="Horizontal_Distance_To_Hydrology" required><br>
+        
+        <label for="Vertical_Distance_To_Hydrology">Vertical_Distance_To_Hydrology</label>
+        <input type="text" name="Vertical_Distance_To_Hydrology" required><br>
+        
+        <label for="Horizontal_Distance_To_Roadways">Horizontal_Distance_To_Roadways:</label>
+        <input type="text" name="Horizontal_Distance_To_Roadways" required><br>
+        
+        <label for="Hillshade_9am">Hillshade_9am (0 to 255)</label>
+        <input type="text" name="Hillshade_9am" required><br>
+        
+        <label for="Hillshade_Noon">Hillshade_Noon (0 to 255):</label>
+        <input type="text" name="Hillshade_Noon" required><br>
+        
+        <label for="Hillshade_3pm">Hillshade_3pm (0 to 255)</label>
+        <input type="text" name="Hillshade_3pm" required><br>
+        
+        <label for="Horizontal_Distance_To_Fire_Points">Horizontal_Distance_To_Fire_Points</label>
+        <input type="text" name="Horizontal_Distance_To_Fire_Points" required><br>
+
+        <input type="submit" value="Predict">
+
+        <p>Prediction: {{ prediction }}</p>
+    </form>
+</body>
+</html>
